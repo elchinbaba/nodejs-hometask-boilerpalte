@@ -42,17 +42,19 @@ router.post('/', createFighterValid, (req, res, next) => {
     }
 }, responseMiddleware);
 
-router.put('/:id', (req, res, next) => {
+router.put('/:id', updateFighterValid, (req, res, next) => {
     try {
-        const data = FighterService.update(req.params.id, req.body);
-        if (data === null) throw Error("Data not found");
-        res.data = data;
+        if (!res.err) {
+            const data = FighterService.update(req.params.id, req.body);
+            if (data === null) throw Error("Data not found");
+            res.data = data;
+        }
     } catch (err) {
         res.err = err;
     } finally {
         next();
     }
-}, updateFighterValid, responseMiddleware);
+}, responseMiddleware);
 
 router.delete('/:id', (req, res, next) => {
     try {

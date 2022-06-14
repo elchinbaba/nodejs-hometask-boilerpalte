@@ -8,7 +8,7 @@ const responseMiddleware = (req, res, next) => {
                 res.status(404).send({ error: true, message: "Data not found" });
                 break;
             default:
-                res.status(500).send({ error: true, message: "Handling issues" });
+                res.status(500).send({ error: true, message: res.err.message });
         }
     else res.send(res.data);
    // TODO: Implement middleware that returns result of the query

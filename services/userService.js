@@ -10,6 +10,7 @@ class UserService {
     }
 
     update(id, data) {
+        if (!this.search({ id: id })) return null;
         const user = UserRepository.update(id, data);
         if(!user) {
             return null;
