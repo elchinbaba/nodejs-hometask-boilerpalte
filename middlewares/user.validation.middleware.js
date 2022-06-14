@@ -17,7 +17,7 @@ const userCreationValidator = reqBody => {
     else if (!(reqBody.email.split('@').pop() === "gmail.com")) throw error;
 
     if (!reqBody.phoneNumber) throw error;
-    else if (!reqBody.phoneNumber.startsWith('+380') || !(reqBody.length === 13)) throw error;
+    else if (!(reqBody.phoneNumber.startsWith("+380") && reqBody.phoneNumber.length === 13 && !isNaN(reqBody.phoneNumber.substring(1)))) throw error;
 
     if (!reqBody.password) throw error;
     else if (!(reqBody.password.length >= 3)) throw error;

@@ -26,8 +26,7 @@ const fighterUpdationValidator = reqBody => {
 }
 
 const checkingUniqueness = reqBody => {
-    if (FighterService.search({ name: reqBody.name }))
-        throw error;
+    if (FighterService.search({ name: reqBody.name })) throw error;
 }
 
 const createFighterValid = (req, res, next) => {
@@ -48,11 +47,9 @@ const createFighterValid = (req, res, next) => {
 const updateFighterValid = (req, res, next) => {
     const reqBody = req.body;
     try {
-        if (!res.err) {
-            if (!fighterHasNoAdditionalFields(reqBody)) throw error;
-            fighterUpdationValidator(reqBody);
-            checkingUniqueness(reqBody);
-        }
+        if (!fighterHasNoAdditionalFields(reqBody)) throw error;
+        fighterUpdationValidator(reqBody);
+        checkingUniqueness(reqBody);
     } catch (error) {
         res.err = error;
     } finally {
