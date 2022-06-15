@@ -20,6 +20,7 @@ class FighterService {
     }
 
     delete(id) {
+        if (!this.search({ id: id })) return null;
         const user = FighterRepository.delete(id);
         if(!user) {
             return null;

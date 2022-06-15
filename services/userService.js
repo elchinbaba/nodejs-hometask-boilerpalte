@@ -19,6 +19,7 @@ class UserService {
     }
 
     delete(id) {
+        if (!this.search({ id: id })) return null;
         const user = UserRepository.delete(id);
         if(!user) {
             return null;
