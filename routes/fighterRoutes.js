@@ -5,10 +5,12 @@ const { createFighterValid, updateFighterValid } = require('../middlewares/fight
 
 const router = Router();
 
+const error = new Error("Data not found");
+
 router.get('/', (req, res, next) => {
     try {
         const data = FighterService.getAll();
-        if (data === null) throw Error("Data not found");
+        if (data === null) throw error;
         res.data = data;
     } catch (err) {
         res.err = err;
@@ -20,7 +22,7 @@ router.get('/', (req, res, next) => {
 router.get('/:id', (req, res, next) => {
     try {
         const data = FighterService.search({ id: req.params.id });
-        if (data === null) throw Error("Data not found");
+        if (data === null) throw error;
         res.data = data;
     } catch (err) {
         res.err = err;
@@ -46,7 +48,7 @@ router.put('/:id', updateFighterValid, (req, res, next) => {
     try {
         if (!res.err) {
             const data = FighterService.update(req.params.id, req.body);
-            if (data === null) throw Error("Data not found");
+            if (data === null) throw error;
             res.data = data;
         }
     } catch (err) {
@@ -59,7 +61,7 @@ router.put('/:id', updateFighterValid, (req, res, next) => {
 router.delete('/:id', (req, res, next) => {
     try {
         const data = FighterService.delete(req.params.id);
-        if (data === null) throw Error("Data not found");
+        if (data === null) throw error;
         res.data = data;
     } catch (err) {
         res.err = err;

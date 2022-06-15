@@ -5,10 +5,12 @@ const { responseMiddleware } = require('../middlewares/response.middleware');
 
 const router = Router();
 
+const error = new Error("Data not found");
+
 router.get('/', (req, res, next) => {
     try {
         const data = UserService.getAll();
-        if (data === null) throw Error("Data not found");
+        if (data === null) throw error;
         res.data = data;
     } catch (err) {
         res.err = err;
@@ -20,7 +22,7 @@ router.get('/', (req, res, next) => {
 router.get('/:id', (req, res, next) => {
     try {
         const data = UserService.search({ id: req.params.id });
-        if (data === null) throw Error("Data not found");
+        if (data === null) throw error;
         res.data = data;
     } catch (err) {
         res.err = err;
@@ -46,7 +48,7 @@ router.put('/:id', updateUserValid, (req, res, next) => {
     try {
         if (!res.err) {
             const data = UserService.update(req.params.id, req.body);
-            if (data === null) throw Error("Data not found");
+            if (data === null) throw error;
             res.data = data;
         }
     } catch (err) {
@@ -59,7 +61,7 @@ router.put('/:id', updateUserValid, (req, res, next) => {
 router.delete('/:id', (req, res, next) => {
     try {
         const data = UserService.delete(req.params.id);
-        if (data === null) throw Error("Data not found");
+        if (data === null) throw error;
         res.data = data;
     } catch (err) {
         res.err = err;
